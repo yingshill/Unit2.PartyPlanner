@@ -1,7 +1,5 @@
-const COHORT = "2309-FSA-ET-WEB-FT-SF!";
-const API_URL = `https://fsa-async-await.herokuapp.com/api/${COHORT}/events`;
-
-
+const COHORT = "2309-FSA-ET-WEB-FT-SF";
+const API_URL = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/${COHORT}/events`;
 
 let state = {
     parties: []
@@ -9,15 +7,15 @@ let state = {
 
 const partyList = document.querySelector("#party_list");
 
-const addPartyForm = document.querySelector("#addArtist");
-addArtistForm.addEventListener("submit", addArtist);
+const addPartyForm = document.querySelector("#addParty");
+addPartyForm.addEventListener("submit", addParty);
 
 /**
  * Sync state with the API and rerender
  */
 async function render() {
   await getParties();
-  renderParties();
+  /* renderParties(); */
 }
 render();
 
@@ -29,6 +27,7 @@ async function getParties() {
     const response = await fetch(API_URL);
     const json = await response.json();
     state.parties = json.data;
+    console.log(json.data)
   } catch (err) {
     console.log(err);
   }
@@ -79,7 +78,8 @@ function addParty(event) {
           description: addPartyForm.description.value,
         }),
       });
-  
+      /* TODO: Need to add the new party to the state */
+
       if (!response.ok) {
         throw new Error("Failed to create artist");
       }
